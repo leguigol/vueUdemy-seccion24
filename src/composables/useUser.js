@@ -1,4 +1,4 @@
-import { auth, firebase } from "../Firebase";
+import { auth, firebase } from "@/Firebase";
 import { useRouter } from "vue-router";
 
 export const useUser = () => {
@@ -14,5 +14,14 @@ export const useUser = () => {
             console.log(error);
         }
     }
-    return {signIn}
+
+    const signOut = async() => {
+        try{
+            await auth.signOut()
+            router.push('/')
+        }catch(error){
+            console.log(error)
+        }
+    }
+    return {signIn,signOut}
 }

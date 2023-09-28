@@ -9,12 +9,18 @@ const routes = [
   {
     path: '/perfil',
     name: 'perfil',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Perfil.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Perfil.vue'),
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/crud',
     name: 'crud',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Crud.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Crud.vue'),
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -23,4 +29,12 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach(async(to,from,next)=> {
+  const requiresAuth=to.matched.some(record=>record.meta.requiresAuth)
+  if(requiresAuth){
+    next()
+  }else{
+    next()
+  }
+})
 export default router
